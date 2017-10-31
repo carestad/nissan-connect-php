@@ -273,6 +273,8 @@ class NissanConnect {
     }
 
     public function getLocation() {
+      $this->prepare();
+
       $result = $this->sendRequest('MyCarFinderRequest.php');
       return $this->waitUntilSuccess('MyCarFinderResultRequest.php');
     }

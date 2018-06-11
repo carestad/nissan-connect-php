@@ -46,7 +46,7 @@ class NissanConnect {
     /* @var boolean Enable to echo debugging information into the PHP error log. */
     public $debug = FALSE;
 
-    private $baseURL = 'https://gdcportalgw.its-mo.com/gworchest_160803A/gdc/';
+    private $baseURL = 'https://gdcportalgw.its-mo.com/gworchest_160803EC/gdc/';
 
     private $resultKey = NULL;
     private $config = NULL;
@@ -171,6 +171,8 @@ class NissanConnect {
         $response2 = $this->sendRequest('RemoteACRecordsRequest.php', array('TimeFrom' => gmdate('Y-m-d\TH:i:s', strtotime($this->config->UserVehicleBoundTime))));
 
         $result = new stdClass();
+
+        $result->status = $response2->status;
 
         $result->LastUpdated = date('Y-m-d H:i', strtotime($response->BatteryStatusRecords->OperationDateAndTime));
 

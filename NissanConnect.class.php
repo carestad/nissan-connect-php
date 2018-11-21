@@ -98,6 +98,32 @@ class NissanConnect {
     }
 
     /**
+     * Schedule climate control.
+     *
+     * @param String $dateTime Datetime string. Anything supported by strtotime()
+     * @param boolean $waitForResult
+     * @return stdClass
+     */
+    public function scheduleClimateControl($dateTime) {
+      $this->prepare();
+      $time = strtotime($dateTime);
+      $date = date('Y-m-d H:i:sP', $time);
+
+      return $this->sendRequest('ACRemoteNewRequest.php', ['ExecuteTime' => $date]);
+    }
+
+    /**
+     * Get scheduled climate control time (if any)
+     *
+     * @return stdClass
+     */
+    public function getScheduledClimateControl() {
+        $this->prepare();
+
+        return $this->sendRequest('GetScheduledACRemoteRequest.php');
+    }
+
+    /**
      * Stop the Climate Control.
      *
      * @param bool $waitForResult Should we wait until the command result is known, before returning? Enabling this will wait until the car executed the command, and returned the response, which can sometimes take a few minutes.
